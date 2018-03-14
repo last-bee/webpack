@@ -1,4 +1,15 @@
 # webpack
+## webpack entry output
+## webpack.config.js  Configuration file for webpack
++ base structure (module.export)
+  +  entry:{} 
+  +  output:{}  
+  +  module:{} //模块  
+  +  plugins:[]//插件  
+  +  devServer:{}//配置服务  
+### webpack src/....
+```
+const path = require('path')
 ### webpack src/....
 ```
 const path = require('path')
