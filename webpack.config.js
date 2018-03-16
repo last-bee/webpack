@@ -1,69 +1,41 @@
 const path = require('path')
-const uglify = require('uglifyjs-webpack-plugin')
-const htmlPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-var website = {
-    publicPath:"http://192.168.10.163:1314/"
-}
-console.log( encodeURIComponent(process.env.type) );
+const uglify = require('uglifyjs-webpack-plugin')//css引入js中
+const htmlPlugin= require('html-webpack-plugin');//进行html压缩
 module.exports = {
     entry:{
+        main:'./src/main.js',
         entry:'./src/entry.js'
     },
     output:{
         path:path.resolve(__dirname,'dist'),
-        filename:'[name].js',
-        publicPath:website.publicPath
+        filename:'[name].js'
     },
     module:{
         rules:[
             {
                 test:/\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: "style-loader",
-                    use: "css-loader"
-                })
-            },
-            {
-                test:/\.(png|jpg|gif)/,
-                use:[{
-                    loader:'url-loader',
-                    options:{
-                        limit:5000,
-                        outputPath:'images/..'
-                    }
-                }]
-            },{
-                test:/\.(htm|html$)/i,
-                use:['html-withimg-loader']
-            },{
-                test:/\.less$/,
-                use:ExtractTextPlugin.extract({
-                    use:[{
-                        loader:'css-loader'
-                    },{
-                        loader:"less-loader"
-                    }],
-                    fallback:"style-loader"
-                })
+                use:['style-loader', 'css-loader']
             }
         ]
     },
     plugins:[
-        //new uglify(),
+        new uglify(),
         new htmlPlugin({
-            minify: {
-                removeAttributeQuotes:true 
+            minify:{
+                removeAttributeQuotes:true
             },
             hash:true,
             template:'./src/index.html'
-        }),
-        new ExtractTextPlugin("css/index.css")
+        })
     ],
     devServer:{
+        //设置基本目录结构
         contentBase:path.resolve(__dirname,'dist'),
-        host:'192.168.10.163',
+        //服务器的ip
+        host:'localhost',
+        //服务端是否开启
         compress:true,
-        port:1314
+        //端口号
+        port:3030
     }
 }
