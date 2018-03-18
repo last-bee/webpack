@@ -32,14 +32,17 @@
   + 引入相关的插件  
   + 生成处理各种样式规则
   + 配置开发环境
-  
+###webpack-dev-server文件
+#### html-webpack-plugin
++ html文件剪切到src目录中，并去掉我们的js引用代码
++ uglifyjs-webpack-plugin js压缩插件，简称uglify
++ module属性配置代码
 
 
 ### webpack src/....
 ```
 const path = require('path')
 ### webpack src/....
-```
 const path = require('path')
 const glob = require('glob')
 const uglify = require('uglifyjs-webpack-plugin')
